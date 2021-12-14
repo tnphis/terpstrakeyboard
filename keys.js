@@ -130,6 +130,7 @@ function changeURL() {
     "&equivSteps=" + document.getElementById("equivSteps").value +
     "&spectrum_colors=" + document.getElementById("spectrum_colors").checked +
     "&fundamental_color=" + document.getElementById("fundamental_color").value +
+    "&centerpointFactor=" + document.getElementById("centerpointFactor").value +      
     "&no_labels=" + document.getElementById("no_labels").checked;
 
   url += "&scale=";
@@ -228,7 +229,7 @@ function resizeHandler() {
 
   // Find new centerpoint
 
-  var centerX = newWidth / 2;
+  var centerX = newWidth / (settings.centerpointFactor || 2);
   var centerY = newHeight / 2;
   settings.centerpoint = new Point(centerX, centerY);
 
@@ -264,6 +265,7 @@ function back() {
   // UI change
   document.getElementById("keyboard").style.display = "none";
   document.getElementById("backButton").style.display = "none";
+  document.getElementById("toggleSustainButton").style.display = "none";
   document.getElementById("landing-page").style.display = "block";
   document.body.style.overflow = 'scroll';
 }
@@ -275,17 +277,19 @@ function goKeyboard() {
   // Set up screen
 
   document.getElementById("landing-page").style.display = "none";
-  document.getElementById("keyboard").style.display = "block";
+  document.getElementById("keyboard").style.display = "block";   
   document.body.style.overflow = 'hidden';
   document.getElementById("backButton").style.display = "block";
+  document.getElementById("toggleSustainButton").style.display = "block";   
 
   // set up settings constants
 
   settings.fundamental = document.getElementById("fundamental").value;
   settings.rSteps = document.getElementById("rSteps").value;
   settings.urSteps = parseFloat(settings.rSteps) - parseFloat(document.getElementById("urSteps").value); // Adjust to different coordinate system
-  settings.hexSize = document.getElementById("hexSize").value;
+  settings.hexSize = document.getElementById("hexSize").value;   
   settings.rotation = (document.getElementById("rotation").value * 2 * Math.PI) / 360;
+  settings.centerpointFactor = document.getElementById("centerpointFactor").value;
   parseScale();
   parseScaleColors();
   settings.names = document.getElementById('names').value.split('\n');
@@ -333,7 +337,7 @@ function goKeyboard() {
       fade: 0.5
     }, {
       fileName: "strings",
-      fade: 0.9
+      fade: 0.5
     }, {
       fileName: "sawtooth",
       fade: 0.2
@@ -356,6 +360,15 @@ function goKeyboard() {
       fileName: "musicbox",
       fade: 0.1
     }, {
+      fileName: "aulos",
+      fade: 0.1
+    }, {
+      fileName: "triangle",
+      fade: 0.25
+    }, {
+      fileName: "hurdy",
+      fade: 0.15
+    },  {
       fileName: "WMRI3LST",
       fade: 0.1
     }, {
@@ -459,7 +472,7 @@ function goKeyboard() {
   }
 
   //iPad Shake to toggle sustain
-  if (typeof window.DeviceMotionEvent != 'undefined') {
+  /* if (typeof window.DeviceMotionEvent != 'undefined') {
     var lastShakeCheck = 0;
     var lastShakeCount = 0;
 
@@ -511,7 +524,7 @@ function goKeyboard() {
       y2 = y1;
       z2 = z1;
     }, 300);
-  }
+  } */
 
   //
 
@@ -1348,6 +1361,20 @@ function noPreset() {
   ms.value = ms.options[0].value;
 }
 
+
+function toggleSustain() {
+  if (settings.sustain == true) {
+    settings.sustain = false;
+    for (var note = 0; note < settings.sustainedNotes.length; note++) {
+      settings.sustainedNotes[note].noteOff();
+    }
+    settings.sustainedNotes = [];
+    tempAlert('Sustain Off', 900);
+  } else {
+    settings.sustain = true;
+    tempAlert('Sustain On', 900);
+  }   
+}
 
 //initialize keyboard on load
 if(init_keyboard_onload)

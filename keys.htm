@@ -126,6 +126,9 @@
                                 <option value="organleslie">Organ + Leslie</option>
                                 <option value="marimba">Marimba</option>
                                 <option value="musicbox">Music Box</option>
+                                <option value="aulos">Aulos</option>
+                                <option value="triangle">Triangle</option>
+                                <option value="hurdy">Pseudohurdy</option>
                             </optgroup>
                             <optgroup label="«What Music Really İs» Study Tones">
                                 <option value="WMRI3LST">WMRİ 3-Limit (4 Harmonics) ST</option>
@@ -140,6 +143,9 @@
                                 <option value="WMRI-in7-har6-">WMRİ Compress inharmonic 7 = harmonic 6</option>
                             </optgroup>
                           </select>
+
+                          <label>Centerpoint factor</label>
+                          <input id="centerpointFactor" type="number" step="0.025" min="1.25" max="4" value="2" onchange="changeURL();noPreset();" class="u-full-width">
 
                           <label>
                               <input id="enum" type="checkbox" name="number_or_name" value="fnord" onchange="hideRevealNames();noPreset();">
@@ -297,6 +303,7 @@ ffffff</textarea>
 	<canvas id="keyboard" tabindex="1" width="1897" height="936" style="display: none; height: 936px; width: 1897px; margin-top: -468px; margin-left: -948.5px;"></canvas>
 
 	<img alt="Return to keyboard design" src="back.png" id="backButton" onclick="back()" style="display: none;">
+   <button id="toggleSustainButton" onclick="toggleSustain()" style="display: none;">S</button>
 
 	<script src="keys.js"></script>
 
