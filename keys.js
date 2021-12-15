@@ -130,7 +130,7 @@ function changeURL() {
     "&equivSteps=" + document.getElementById("equivSteps").value +
     "&spectrum_colors=" + document.getElementById("spectrum_colors").checked +
     "&fundamental_color=" + document.getElementById("fundamental_color").value +
-    "&centerpointFactor=" + document.getElementById("centerpointFactor").value +      
+    "&centerpointFactor=" + document.getElementById("centerpointFactor").value +
     "&no_labels=" + document.getElementById("no_labels").checked;
 
   url += "&scale=";
@@ -277,17 +277,17 @@ function goKeyboard() {
   // Set up screen
 
   document.getElementById("landing-page").style.display = "none";
-  document.getElementById("keyboard").style.display = "block";   
+  document.getElementById("keyboard").style.display = "block";
   document.body.style.overflow = 'hidden';
   document.getElementById("backButton").style.display = "block";
-  document.getElementById("toggleSustainButton").style.display = "block";   
+  document.getElementById("toggleSustainButton").style.display = "block";
 
   // set up settings constants
 
   settings.fundamental = document.getElementById("fundamental").value;
   settings.rSteps = document.getElementById("rSteps").value;
   settings.urSteps = parseFloat(settings.rSteps) - parseFloat(document.getElementById("urSteps").value); // Adjust to different coordinate system
-  settings.hexSize = document.getElementById("hexSize").value;   
+  settings.hexSize = document.getElementById("hexSize").value;
   settings.rotation = (document.getElementById("rotation").value * 2 * Math.PI) / 360;
   settings.centerpointFactor = document.getElementById("centerpointFactor").value;
   parseScale();
@@ -1373,7 +1373,7 @@ function toggleSustain() {
   } else {
     settings.sustain = true;
     tempAlert('Sustain On', 900);
-  }   
+  }
 }
 
 //initialize keyboard on load
@@ -1381,6 +1381,6 @@ if(init_keyboard_onload)
 {
   //hide landing page
   document.getElementById('landing-page').style.display ='none';
-  
+
   setTimeout(function(){ goKeyboard(); }, 1500);
 }
